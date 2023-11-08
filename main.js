@@ -2,11 +2,13 @@ const gameDiv = document.getElementById('game');
 
 var gridSquares = [[]];
 
-var numMines = 10;
+var numMines = 20;
+var gameSize = 15;
 
 var gameStart = false;
 
 function initGrid(rows, columns) {
+    gameStart = false;
     gameDiv.innerHTML = '';
     gridSquares = [];
     for(let i = 0; i < rows; i++) {
@@ -187,8 +189,7 @@ function testWin() {
 }
 
 function init() {
-    gameStart = false;
-    initGrid(10, 10);
+    initGrid(gameSize, gameSize);
 }
 
 init();
