@@ -1,0 +1,25 @@
+body {
+    font-family: monospace;
+}
+
+#game {
+    display: flex;
+    width: 400px;
+    height: 400px;
+    border: 5px solid rgb(150,150,150);
+    flex-wrap: wrap;
+}
+
+.grid-square {
+    box-sizing: border-box;
+    background-color: rgb(150,150,150);
+    border: 8px outset rgb(130,130,130);
+    color: rgb(150,150,150);
+}
+
+.open {
+    border: 3px inset rgb(130,130,130);
+    color: rgb(0,0,0);
+    font-size: 200%;
+    text-align: center;
+}
