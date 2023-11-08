@@ -7,6 +7,7 @@ var numMines = 10;
 var gameStart = false;
 
 function initGrid(rows, columns) {
+    gameDiv.innerHTML = '';
     gridSquares = [];
     for(let i = 0; i < rows; i++) {
         gridSquares[i] = [];
@@ -14,7 +15,12 @@ function initGrid(rows, columns) {
             let nextSquare = document.createElement('div');
             nextSquare.classList = 'grid-square covered';
             nextSquare.style = `width: ${100 / columns}%; height: ${100 / rows}%;`;
+
             nextSquare.onclick = () => {
+                if(nextSquare.classList.contains('marked')) {
+                    return;
+                }
+
                 if(!gameStart){
                     gameStart = true;
                     initMines(numMines, i, j);
@@ -22,6 +28,36 @@ function initGrid(rows, columns) {
                 }
 
                 cascadeUnblock(i, j);
+
+                if(nextSquare.classList.contains('mine')) {
+                    setTimeout(() => {
+                        alert('You lose!');
+                        init();
+                    }, 100);
+                    return;
+                }
+
+                testWin();
+            }
+            
+            nextSquare.oncontextmenu = (event) => {
+                event.preventDefault();
+
+                if(!gameStart) {
+                    return;
+                }
+
+                if(nextSquare.classList.contains('covered') == false) {
+                    nextSquare.classList.remove('marked');
+                    return;
+                }
+
+                if(nextSquare.classList.contains('marked')) {
+                    nextSquare.classList.remove('marked');
+                }
+                else {
+                    nextSquare.classList.add('marked');
+                }
             }
 
             gameDiv.appendChild(nextSquare);
@@ -78,9 +114,9 @@ function getSquareValue(row, column) {
 
     let value = 0;
 
-    for(let i = -1; i < 2; i++) {
-        for(let j = -1; j < 2; j++) {
-            if(squareHasMine(row + i, column + j)) {
+    for(let i = -1; i < 2; i++) { 
+        for(let j = -1; j < 2; j++) { 
+            if(squareHasMine(row + i, column + j)) { 
                 value++;
             }
         }
@@ -110,7 +146,12 @@ function cascadeUnblock(row, column) {
     }
     
     gridSquares[row][column].classList.remove('covered');
+    gridSquares[row][column].classList.remove('marked');
     gridSquares[row][column].classList.add('open');
+
+    if(getSquareValue(row, column) != 0) {
+        return;
+    }
 
     for(let i = -1; i < 2; i++) {
         for(let j = -1; j < 2; j++) {
@@ -118,14 +159,35 @@ function cascadeUnblock(row, column) {
                 cascadeUnblock(row + i, column + j);
             }
             else if(getSquareValue(row + i, column + j) != -1) { 
-                gridSquares[row][column].classList.remove('covered');
-                gridSquares[row][column].classList.add('open');
+                gridSquares[row + i][column + j].classList.remove('covered');
+                gridSquares[row + i][column + j].classList.remove('marked');
+                gridSquares[row + i][column + j].classList.add('open');
             }
         }
     }
 }
 
+function testWin() {
+    let numCovered = 0;
+
+    for(let i = 0; i < gridSquares.length; i++) {
+        for(let j = 0; j < gridSquares[i].length; j++) {
+            if(gridSquares[i][j].classList.contains('covered')) {
+                numCovered++;
+            }
+        }
+    }
+
+    if(numCovered <= numMines) {
+        setTimeout(() => {
+            alert('You win!');
+            init();
+        }, 100);
+    }
+}
+
 function init() {
+    gameStart = false;
     initGrid(10, 10);
 }
 

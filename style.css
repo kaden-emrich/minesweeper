@@ -13,6 +13,12 @@ body {
 .grid-square {
     padding: 2px;
     box-sizing: border-box;
+    cursor: pointer;
+    
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-text-select: none;
+    -webkit-user-select: none;
 }
 
 .open {
@@ -56,5 +62,11 @@ body {
 .covered {
     background-color: rgb(150,150,150);
     border: 8px outset rgb(130,130,130);
-    color: rgb(150,150,150);
+    color: transparent;
+}
+
+.marked {
+    background-color: rgb(255,0,0);
+    color: transparent;
+    border: 10px outset rgb(100,100,100);
 }
