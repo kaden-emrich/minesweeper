@@ -2,7 +2,7 @@ const gameDiv = document.getElementById('game');
 
 var gridSquares = [[]];
 
-var numMines = 20;
+var numMines = 50;
 var gameSize = 15;
 
 var gameStart = false;
