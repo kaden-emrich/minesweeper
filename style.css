@@ -11,15 +11,50 @@ body {
 }
 
 .grid-square {
+    padding: 2px;
     box-sizing: border-box;
-    background-color: rgb(150,150,150);
-    border: 8px outset rgb(130,130,130);
-    color: rgb(150,150,150);
 }
 
 .open {
     border: 3px inset rgb(130,130,130);
+    background-color: rgb(150,150,150);
     color: rgb(0,0,0);
     font-size: 200%;
     text-align: center;
+    font-weight: 900;
+}
+
+.num-1 {
+    color: green;
+}
+.num-2 {
+    color: blue;
+}
+.num-3 {
+    color: red;
+}
+.num-4 {
+    color: purple;
+}
+.num-5 {
+    color: yellow;
+}
+.num-6 {
+    color: orange;
+}
+.num-7 {
+    color: teal;
+}
+.num-8 {
+    color: magenta;
+}
+
+.mine {
+    background-color: rgb(150,0,0);
+}
+
+.covered {
+    background-color: rgb(150,150,150);
+    border: 8px outset rgb(130,130,130);
+    color: rgb(150,150,150);
 }
