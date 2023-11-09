@@ -69,6 +69,8 @@ function initGrid(rows, columns) {
 }
 
 function initMines(numMines, excludeX, excludeY) {
+    console.log('Creating mines... Exclude(' + excludeX + ", " + excludeY + ")");
+
     for(let i = 0; i < numMines; i++) {
 
         let row = Math.floor(Math.random() * gridSquares.length);
@@ -82,7 +84,7 @@ function initMines(numMines, excludeX, excludeY) {
             excludeBlock = false;
             for(let i = -2; i < 3; i++) {
                 for(let j = -2; j < 3; j++) {
-                    if(excludeY + i == row && excludeX + j == column) {
+                    if(excludeX + i == row && excludeY + j == column) {
                         excludeBlock = true;
                     }
                 }
