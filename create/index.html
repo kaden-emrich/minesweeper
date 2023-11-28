@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creata A Minesweeper</title>
+
+    <style>
+        body {
+            font-family: monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: rgb(150,150,150);
+        }
+        caption {
+            margin: 10px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        input {
+            position: relative;
+            border: 5px outset rgb(120,120,120);
+            background-color: rgb(160,160,160);
+        }
+        input:active {
+            top: 1px;
+            left: 1px;
+            border: 5px inset rgb(120,120,120);
+            background-color: rgb(100,100,100);
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <form action="\index.html" method="get">
+            <table>
+            <caption>Create A Minesweeper Game</caption>
+            <tr><td>Width: </td><td><input type="number" name="gamewidth" value="16"></td></tr>
+            <tr><td>Height: </td><td><input type="number" name="gameheight" value="16"></td></tr>
+            <tr><td>Mines: </td><td><input type="number" name="nummines" value="40"></td></tr>
+            <tr><td><a href="\index.html"><input type="button" value="◄Back"></a></td><td><input type="submit" value="GO!"></td></tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

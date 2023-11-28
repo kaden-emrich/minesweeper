@@ -1,22 +1,32 @@
 const gameDiv = document.getElementById('game');
+const mineDisplay = document.getElementById('mineDisplay');
 
 var gridSquares = [[]];
 
-var numMines = 50;
-var gameSize = 15;
+var numMines = 40;
+var gameWidth = 16;
+var gameHeight = 16;
+var squareSize = 20;
+var squareBorderValue = 0.25;
+var numSizeValue = 0.7;
 
 var gameStart = false;
 
+var numMarkedMines = 0;
+
 function initGrid(rows, columns) {
+    numMarkedMines = 0;
+    updateMineDisplay();
     gameStart = false;
     gameDiv.innerHTML = '';
+    gameDiv.style.width = squareSize * columns + "px";
     gridSquares = [];
     for(let i = 0; i < rows; i++) {
         gridSquares[i] = [];
         for(let j = 0; j < columns; j++) {
             let nextSquare = document.createElement('div');
             nextSquare.classList = 'grid-square covered';
-            nextSquare.style = `width: ${100 / columns}%; height: ${100 / rows}%;`;
+            nextSquare.style = `width: ${squareSize}px; height: ${squareSize}px; border-width: ${squareSize * squareBorderValue}px; font-size: ${squareSize*numSizeValue}px;`;
 
             nextSquare.onclick = () => {
                 if(nextSquare.classList.contains('marked')) {
@@ -32,6 +42,7 @@ function initGrid(rows, columns) {
                 cascadeUnblock(i, j);
 
                 if(nextSquare.classList.contains('mine')) {
+                    showSecrets();
                     setTimeout(() => {
                         alert('You lose!');
                         init();
@@ -56,10 +67,13 @@ function initGrid(rows, columns) {
 
                 if(nextSquare.classList.contains('marked')) {
                     nextSquare.classList.remove('marked');
+                    numMarkedMines--;
                 }
                 else {
                     nextSquare.classList.add('marked');
+                    numMarkedMines++;
                 }
+                updateMineDisplay();
             }
 
             gameDiv.appendChild(nextSquare);
@@ -153,6 +167,8 @@ function cascadeUnblock(row, column) {
     gridSquares[row][column].classList.remove('marked');
     gridSquares[row][column].classList.add('open');
 
+    gridSquares[row][column].style.borderWidth = squareBorderValue/2 * squareSize + 'px';
+
     if(getSquareValue(row, column) != 0) {
         return;
     }
@@ -166,9 +182,25 @@ function cascadeUnblock(row, column) {
                 gridSquares[row + i][column + j].classList.remove('covered');
                 gridSquares[row + i][column + j].classList.remove('marked');
                 gridSquares[row + i][column + j].classList.add('open');
+
+                gridSquares[row + i][column + j].style.borderWidth = squareBorderValue/2 * squareSize + 'px';
             }
         }
     }
+}
+
+function showSecrets() {
+    for(let row = 0; row < gridSquares.length; row++) {
+        for(let column = 0; column < gridSquares[row].length; column++) {
+            if(gridSquares[row][column].classList.contains('covered')) {
+                cascadeUnblock(row, column);
+            }
+        }
+    }
+}
+
+function updateMineDisplay() {
+    mineDisplay.innerText = numMines - numMarkedMines;
 }
 
 function testWin() {
@@ -190,8 +222,20 @@ function testWin() {
     }
 }
 
+function getUrlVar(varName) {
+    var searchParams = new URLSearchParams(window.location.search);
+    return searchParams.get(varName);
+}
+
+function updateVariablesWithParams() {
+    gameWidth = parseInt(getUrlVar("gamewidth")) ? parseInt(getUrlVar("gamewidth")) : gameWidth;
+    gameHeight = parseInt(getUrlVar("gameheight")) ? parseInt(getUrlVar("gameheight")) : gameHeight;
+    numMines = parseInt(getUrlVar("nummines")) ? parseInt(getUrlVar("nummines")) : numMines;
+}
+
 function init() {
-    initGrid(gameSize, gameSize);
+    updateVariablesWithParams();
+    initGrid(gameHeight, gameWidth);
 }
 
 init();

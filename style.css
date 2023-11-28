@@ -4,18 +4,40 @@ body {
     align-items: center;
     font-family: monospace;
     flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: rgb(150,150,150);
+}
+
+#main {
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#game-top {
+    text-align: right;
+    box-sizing: border-box;
+}
+
+#mineDisplay {
+    box-sizing: content-box;
+    margin: 10px;
+    padding: 5px;
+    color: rgb(150,0,0);
+    background-color: rgb(140,140,140);
+    border: 5px inset rgb(120,120,120);
+    border-bottom: rgb(140,140,140);
+    font-size: 30px;
 }
 
 #game {
+    margin: 5px;
     display: flex;
-    width: 500px;
-    height: 500px;
-    border: 5px solid rgb(150,150,150);
     flex-wrap: wrap;
+    border: 5px inset rgb(120,120,120);
 }
 
 .grid-square {
-    padding: 2px;
     box-sizing: border-box;
     cursor: pointer;
     
@@ -26,7 +48,7 @@ body {
 }
 
 .open {
-    border: 3px inset rgb(130,130,130);
+    border: 2px inset rgb(130,130,130);
     background-color: rgb(150,150,150);
     color: rgb(0,0,0);
     font-size: 200%;
@@ -65,12 +87,24 @@ body {
 
 .covered {
     background-color: rgb(150,150,150);
-    border: 8px outset rgb(130,130,130);
+    border: outset rgb(130,130,130);
     color: transparent;
 }
 
 .marked {
     background-color: rgb(255,0,0);
     color: transparent;
-    border: 10px outset rgb(100,100,100);
+    border: outset rgb(100,100,100);
+}
+
+button {
+    position: relative;
+    border: 5px outset rgb(120,120,120);
+    background-color: rgb(160,160,160);
+}
+button:active {
+    top: 1px;
+    left: 1px;
+    border: 5px inset rgb(120,120,120);
+    background-color: rgb(100,100,100);
 }
