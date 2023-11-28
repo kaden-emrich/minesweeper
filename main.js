@@ -6,7 +6,7 @@ var gridSquares = [[]];
 var numMines = 40;
 var gameWidth = 16;
 var gameHeight = 16;
-var squareSize = 20;
+var squareSize = 30;
 var squareBorderValue = 0.25;
 var numSizeValue = 0.7;
 
